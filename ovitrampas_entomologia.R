@@ -7,17 +7,15 @@ head(dfov)
 
 #cargar base de datos de Estudio entomologico
 dfee0 <- read.csv(file = "enero/DescargaEntomologicoe26_10.txt", header = TRUE, sep = "\t", fileEncoding = 'utf-16')
-head(dfee0)
+head(dfee)
 
-dfee <- dfee0 %>%
-  mutate()
-dfee
-names(dfee)
+
 str(dfee)
 
 #convertir el tipo de dato de semana epidemiologica de numero a caracter
 dfee$Semana.Epidemiologica <- as.character(dfee$Semana.Epidemiologica) 
-
+#dfee$Sector <- as.character(dfee$Sector)
+#dfee$Manzanas.exploradas <- as.character(dfee$Manzanas.exploradas)
 
 #Filtrar datos por tipo de estudio 
 
@@ -32,35 +30,36 @@ dfeee
 dfeeeobregon<-dfeee %>% filter(Localidad == '0001 CIUDAD OBREGÓN')
 
 #sumar datos por Semana epidemiologica
-dfeeeobregon %>% 
-  group_by(Semana.Epidemiologica) %>% colSums(na.rm = TRUE)
-dfeeeobregon %>% mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
 
+
+dfeeeobregon<-dfeeeobregon %>%
+  group_by(Semana.Epidemiologica) %>% summarise(across(where(is.numeric), .fns = sum)) %>%
+  mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
+dfeeeobregon
 
 #Guaymas
 dfeeeguaymas<-dfeee %>% filter(Localidad == '0001 HEROICA GUAYMAS')
 #sumar datos por Semana epidemiologica
-dfeeeguaymas %>% 
-  group_by(Semana.Epidemiologica) %>% colSums(na.rm = TRUE)
-dfeeeguaymas <- dfeeeguaymas %>% mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
-
+dfeeeguaymas <-dfeeeguaymas %>%
+  group_by(Semana.Epidemiologica) %>% summarise(across(where(is.numeric), .fns = sum)) %>%
+  mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
+dfeeeguaymas
 
 #Hermosillo
 dfeeehermosillo<-dfeee %>% filter(Localidad == '0001 HERMOSILLO')
 #sumar datos por Semana epidemiologica
-dfeeehermosillo %>% 
-  group_by(Semana.Epidemiologica) %>% colSums(na.rm = TRUE)
-dfeeehermosillo <- dfeeehermosillo %>% mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
-
+dfeeehermosillo<-dfeeehermosillo %>%
+  group_by(Semana.Epidemiologica) %>% summarise(across(where(is.numeric), .fns = sum)) %>%
+  mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
+dfeeehermosillo
 
 #Navojoa
 dfeeenavojoa<-dfeee %>% filter(Localidad == '0001 NAVOJOA')
 #sumar datos por Semana epidemiologica
-dfeeenavojoa %>% 
-  group_by(Semana.Epidemiologica) %>% colSums(na.rm = TRUE)
-dfeeenavojoa <- dfeeenavojoa %>% mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
-
-
+dfeeenavojoa<-dfeeenavojoa %>%
+  group_by(Semana.Epidemiologica) %>% summarise(across(where(is.numeric), .fns = sum)) %>%
+  mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
+dfeeenavojoa
 
 
 #Tipo de Estudio(Verificacion)
@@ -71,32 +70,36 @@ dfeev
 #Obregon
 dfeevobregon<-dfeev %>% filter(Localidad == '0001 CIUDAD OBREGÓN')
 #sumar datos por Semana epidemiologica
-dfeevobregon %>% 
-  group_by(Semana.Epidemiologica) %>% colSums(na.rm = TRUE)
-dfeevobregon <- dfeevobregon %>% mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
-
-
+dfeevobregon<-dfeevobregon %>%
+  group_by(Semana.Epidemiologica) %>% summarise(across(where(is.numeric), .fns = sum)) %>%
+  mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
+dfeevobregon
 
 #Guaymas
 dfeevguaymas<-dfeev %>% filter(Localidad == '0001 HEROICA GUAYMAS')
 
 #sumar datos por Semana epidemiologicadfeevguaymas %>% 
-  group_by(Semana.Epidemiologica) %>% colSums(na.rm = TRUE)
-dfeevguaymas <- dfeevguaymas %>% mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
-
-
+  
+dfeevguaymas<-dfeevguaymas%>%
+  group_by(Semana.Epidemiologica) %>% summarise(across(where(is.numeric), .fns = sum)) %>%
+  mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
+dfeevguaymas
 
 #Hermosillo
 dfeevhermosillo<-dfeev %>% filter(Localidad == '0001 HERMOSILLO')
 #sumar datos por Semana epidemiologica
-dfeevhermosillo %>% 
-  group_by(Semana.Epidemiologica) %>% colSums(na.rm = TRUE)
-dfeevhermosillo <- dfeevhermosillo %>% mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
-
+dfeevhermosillo<-dfeevhermosillo %>%
+  group_by(Semana.Epidemiologica) %>% summarise(across(where(is.numeric), .fns = sum)) %>%
+  mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
+dfeevhermosillo
 
 #Navojoa
 dfeevnavojoa<-dfeev %>% filter(Localidad == '0001 NAVOJOA')
 #sumar datos por Semana epidemiologica
-dfeevnavojoa %>% 
-  group_by(Semana.Epidemiologica) %>% colSums(na.rm = TRUE)
-dfeevnavojoa <- dfeevnavojoa %>% mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
+dfeevnavojoa<-dfeevnavojoa %>%
+  group_by(Semana.Epidemiologica) %>% summarise(across(where(is.numeric), .fns = sum)) %>%
+  mutate(ICP=(Casas.Positivas/Casas.Revisadas*100), IB=(Total.de.Recipientes.Positivos/Casas.Revisadas*100), (Total.de.Recipientes.Positivos/Total.de.Recipientes.con.Agua*100))
+dfeevnavojoa
+
+
+#"Num.Estudio"
